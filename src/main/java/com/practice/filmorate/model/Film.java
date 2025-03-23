@@ -2,6 +2,7 @@ package com.practice.filmorate.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Duration;
@@ -11,12 +12,14 @@ import java.util.Objects;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Film {
     private int id;
     private String name;
     private String description;
     private LocalDate releaseDate;
-    private Duration duration;
+    private int duration;
+
 
     @Override
     public boolean equals(Object o) {
@@ -30,4 +33,6 @@ public class Film {
     public int hashCode() {
         return Objects.hash(id, name, description, releaseDate, duration);
     }
+
+
 }
