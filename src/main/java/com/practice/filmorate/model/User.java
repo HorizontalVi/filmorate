@@ -6,7 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -18,6 +20,8 @@ public class User {
     private String login;
     private String name;
     private LocalDate birthday;
+
+    Set<User> friends = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {

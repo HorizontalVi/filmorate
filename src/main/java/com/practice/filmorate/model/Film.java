@@ -7,10 +7,11 @@ import lombok.Setter;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Film {
@@ -20,6 +21,7 @@ public class Film {
     private LocalDate releaseDate;
     private int duration;
 
+    Set<Integer> likes = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {

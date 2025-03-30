@@ -2,6 +2,9 @@ package com.practice.filmorate.controller;
 
 import com.practice.filmorate.exception.ValidateException;
 import com.practice.filmorate.model.Film;
+import com.practice.filmorate.service.FilmService;
+import com.practice.filmorate.storage.FilmStorage;
+import com.practice.filmorate.storage.InMemoryFilmStorage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,9 +15,12 @@ import java.time.LocalDate;
 public class FilmControllerTest {
     private FilmController filmController;
 
+
     @BeforeEach
     void setUp(){
-        filmController = new FilmController();
+        FilmStorage filmStorage = new InMemoryFilmStorage();
+        FilmService filmService = new FilmService(filmStorage);
+        filmController = new FilmController(filmService);
     }
 
     @Test
