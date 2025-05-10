@@ -1,7 +1,5 @@
 package com.practice.filmorate.controller;
 
-import com.practice.filmorate.exception.NotFoundException;
-import com.practice.filmorate.exception.ValidateException;
 import com.practice.filmorate.model.Film;
 import com.practice.filmorate.service.FilmService;
 import lombok.RequiredArgsConstructor;
@@ -31,5 +29,20 @@ public class FilmController {
         return filmService.findAll();
     }
 
+    // get //films/
 
+    @GetMapping("/popular")
+    public List<Film> findPopularFilms(@RequestParam int count){
+        return filmService.findAllPopularFilms(count);
+    }
+
+    @PutMapping("/{filmId}/like/{userId}")
+    public void addLike(@PathVariable int filmId, @PathVariable int userId){
+        filmService.addLike(userId,filmId);
+    }
+
+    @DeleteMapping("/{filmId}/like/{userId}")
+    public void removeLike(@PathVariable int filmId, @PathVariable int userId){
+        filmService.removeLike(userId,filmId);
+    }
 }

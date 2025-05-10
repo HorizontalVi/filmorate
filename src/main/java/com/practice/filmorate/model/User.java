@@ -21,7 +21,7 @@ public class User {
     private String name;
     private LocalDate birthday;
 
-    Set<User> friends = new HashSet<>();
+    Set<Integer> friends = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {

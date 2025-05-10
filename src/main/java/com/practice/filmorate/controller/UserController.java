@@ -6,6 +6,7 @@ import com.practice.filmorate.model.User;
 import com.practice.filmorate.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.w3c.dom.ls.LSInput;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -43,12 +44,12 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/friends")
-    public Set<User> findAllFriend(@PathVariable int userId){
+    public List<User> findAllFriend(@PathVariable int userId){
         return userService.findAllFriends(userId);
     }
 
     @GetMapping("/{userId}/friends/common/{friendId}")
-    public Set<User> findAllCommonFriend(@PathVariable int userId,@PathVariable int friendId){
+    public List<User> findAllCommonFriend(@PathVariable int userId, @PathVariable int friendId){
         return userService.findAllCommonFriends(userId,friendId);
     }
 }

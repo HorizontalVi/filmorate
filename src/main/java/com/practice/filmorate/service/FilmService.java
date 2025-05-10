@@ -6,7 +6,9 @@ import com.practice.filmorate.model.User;
 import com.practice.filmorate.storage.FilmStorage;
 import com.practice.filmorate.storage.UserStorage;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import java.util.Comparator;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -46,10 +48,15 @@ public class FilmService {
         Film film = filmStorage.findById(filmId);
         userStorage.findById(userId);
         film.getLikes().remove(userId);
+
     }
 
     public List<Film> findAllPopularFilms(int count){
-        filmStorage.
+        Comparator<Film> comporator = (Film o1, Film o2) -> o2.getLikes().size() - o1.getLikes().size();
+        return filmStorage.findAll().stream()
+                .sorted(comporator)
+                .limit(count)
+                .toList();
     }
 
     private void validate(Film film) {

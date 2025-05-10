@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+@Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,6 +36,4 @@ public class Film {
     public int hashCode() {
         return Objects.hash(id, name, description, releaseDate, duration);
     }
-
-
 }

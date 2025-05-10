@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,28 +38,39 @@ public class UserService {
     public void addFriend(int userId, int friendId) {
         User user = userStorage.findById(userId);
         User friend = userStorage.findById(friendId);
-        user.getFriends().add(friend);
-        friend.getFriends().add(user);
+        user.getFriends().add(friendId);
+        friend.getFriends().add(userId);
     }
 
     public void deleteFriend(int userId, int friendId) {
         User user = userStorage.findById(userId);
         User friend = userStorage.findById(friendId);
-        user.getFriends().remove(friend);
-        user.getFriends().remove(user);
+        user.getFriends().remove(friendId);
+        friend.getFriends().remove(userId);
     }
 
-    public Set<User> findAllFriends(int userId) {
-        return userStorage.findById(userId).getFriends();
+    public List<User> findAllFriends(int userId) {
+        User user = userStorage.findById(userId);
+        Set<Integer> friendIds = user.getFriends();
+        List<User> result = new ArrayList<>();
+        for (Integer friendId : friendIds){
+           User userFriend = findById(friendId);
+           result.add(userFriend);
+        }
+        return result;
+
+//        return user.getFriends().stream()
+//                .map(friendId -> findById(friendId))
+//                .toList();
     }
 
-    public Set<User> findAllCommonFriends(int userId, int friendId) {
+    public List<User> findAllCommonFriends(int userId, int friendId) {
         User user = userStorage.findById(userId);
         User friend = userStorage.findById(friendId);
-        Set<User> commonFriends = new HashSet<>();
-        for (User user1 : user.getFriends()){
-            if (friend.getFriends().contains(user1)){
-                commonFriends.add(user1);
+        List<User> commonFriends = new ArrayList<>();
+        for (Integer user1FriendId : user.getFriends()){
+            if (friend.getFriends().contains(user1FriendId)){
+                commonFriends.add(findById(user1FriendId));
             }
         }
         return commonFriends;
